@@ -57,18 +57,30 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * mqttClient的默认实现类
+ */
+
+/**
  * Represents an MqttClientImpl connected to a single MQTT server. Will try to keep the connection going at all times
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 final class MqttClientImpl implements MqttClient {
 
+    // 向服务器订阅的标识，这里使用set防止了重复的订阅内容
     private final Set<String> serverSubscriptions = new HashSet<>();
+    // 等待中的未订阅的内容
     private final ConcurrentMap<Integer, MqttPendingUnsubscription> pendingServerUnsubscribes = new ConcurrentHashMap<>();
+    // Quality of Service,服务质量，具体的看是level0,1还是2
     private final ConcurrentMap<Integer, MqttIncomingQos2Publish> qos2PendingIncomingPublishes = new ConcurrentHashMap<>();
+    // 等待发布的mqtt消息
     private final ConcurrentMap<Integer, MqttPendingPublish> pendingPublishes = new ConcurrentHashMap<>();
+    // 订阅内容
     private final HashMultimap<String, MqttSubscription> subscriptions = HashMultimap.create();
+    // 等待中的订阅的内容
     private final ConcurrentMap<Integer, MqttPendingSubscription> pendingSubscriptions = new ConcurrentHashMap<>();
+    // 等待订阅的主题
     private final Set<String> pendingSubscribeTopics = new HashSet<>();
+    // 处理的订阅
     private final HashMultimap<MqttHandler, MqttSubscription> handlerToSubscribtion = HashMultimap.create();
     private final AtomicInteger nextMessageId = new AtomicInteger(1);
 
@@ -76,14 +88,19 @@ final class MqttClientImpl implements MqttClient {
 
     private final MqttHandler defaultHandler;
 
+    // 基于netty的EventLoopGroup方式完成处理
     private EventLoopGroup eventLoop;
 
+    // socket通道
     private volatile Channel channel;
 
+    // 连接状态
     private volatile boolean disconnected = false;
+    // 重连状态
     private volatile boolean reconnect = false;
     private String host;
     private int port;
+    // 异步回调
     private MqttClientCallback callback;
 
 
@@ -107,6 +124,7 @@ final class MqttClientImpl implements MqttClient {
     }
 
     /**
+     * 默认传入host地址，默认端口为1883
      * Connect to the specified hostname/ip. By default uses port 1883.
      * If you want to change the port number, see {@link #connect(String, int)}
      *

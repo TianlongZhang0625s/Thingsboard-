@@ -26,6 +26,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+/**
+ * 用于actor模型之间的消息传送的载体，mailbox
+ * 每个Actor都有一个MailBox,其会检查MailBox并处理消息。
+ * MailBox内部采用的是FIFO队列来存储消息，有一点不同的是，现实中我们的最新邮件
+ * 会在邮箱的最前面。
+ */
 @Slf4j
 @Data
 public final class TbActorMailbox implements TbActorCtx {
@@ -52,12 +58,22 @@ public final class TbActorMailbox implements TbActorCtx {
 
     public void initActor() {
         dispatcher.getExecutor().execute(() -> tryInit(1));
+//        同样的效果
+//        dispatcher.getExecutor().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                tryInit(1);
+//            }
+//        });
     }
 
+    // 执行初始化，或者处理队列中遗留的消息
     private void tryInit(int attempt) {
         try {
             log.debug("[{}] Trying to init actor, attempt: {}", selfId, attempt);
+            // 如果get的值为false，是的--> new AtomicBoolean() 默认值就是false
             if (!destroyInProgress.get()) {
+                // 赋值给Abstract
                 actor.init(this);
                 if (!destroyInProgress.get()) {
                     ready.set(READY);
@@ -78,6 +94,9 @@ public final class TbActorMailbox implements TbActorCtx {
             } else {
                 log.info("[{}] Failed to init actor, attempt {}, going to retry immediately", selfId, attempt);
                 log.debug("[{}] Error", selfId, t);
+
+//                Dispatcher从ActorRef中获取消息并传递给MailBox,Dispatcher封装了一个线程池，之后在
+//                线程池中执行MailBox。
                 dispatcher.getExecutor().execute(() -> tryInit(attemptIdx));
             }
         }
@@ -108,6 +127,10 @@ public final class TbActorMailbox implements TbActorCtx {
         }
     }
 
+    /**
+     * 处理消息 --> 指定的actor的process方法实现消息处理，这里验证了actor模型之间仅仅
+     * 通过消息改变状态
+     */
     private void processMailbox() {
         boolean noMoreElements = false;
         for (int i = 0; i < settings.getActorThroughput(); i++) {

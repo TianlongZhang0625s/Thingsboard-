@@ -1,34 +1,12 @@
-/**
- * Copyright © 2016-2020 The Thingsboard Authors
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package org.thingsboard.server.common.msg;
+# 消息类型
 
-import org.thingsboard.server.common.msg.queue.PartitionChangeMsg;
-import org.thingsboard.server.common.msg.queue.QueueToRuleEngineMsg;
-
-/**
- * Created by ashvayka on 15.03.18.
- * thingsboard中的消息类型
- */
+源码分析
+```java
 public enum MsgType {
 
-    /**
-     * ADDED/UPDATED/DELETED events for server nodes.
-     *
-     * See {@link PartitionChangeMsg}
-     */
+   /**
+    *partition位置改变消息，表明存储消息的partition改变
+    */
     PARTITION_CHANGE_MSG,
 
     APP_INIT_MSG,
@@ -36,14 +14,12 @@ public enum MsgType {
     /**
      * ADDED/UPDATED/DELETED events for main entities.
      *
-     * See {@link org.thingsboard.server.common.msg.plugin.ComponentLifecycleMsg}
      */
     COMPONENT_LIFE_CYCLE_MSG,
 
     /**
      * Misc messages consumed from the Queue and forwarded to Rule Engine Actor.
      *
-     * See {@link QueueToRuleEngineMsg}
      */
     QUEUE_TO_RULE_ENGINE_MSG,
 
@@ -105,3 +81,5 @@ public enum MsgType {
     TRANSPORT_TO_DEVICE_ACTOR_MSG;
 
 }
+
+```

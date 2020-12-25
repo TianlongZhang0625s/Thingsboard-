@@ -22,6 +22,10 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.handler.codec.mqtt.MqttQoS;
 import io.netty.util.concurrent.Future;
 
+/**
+ * 定义了客户端所有的基本行为，
+ * 和数据库的接口设计有些类似，打开链接，操作，关闭等操作
+ */
 public interface MqttClient {
 
     /**

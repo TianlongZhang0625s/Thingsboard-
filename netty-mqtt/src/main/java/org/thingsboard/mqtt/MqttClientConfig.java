@@ -24,13 +24,20 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
+/**
+ * 主要是mqtt的配置
+ */
+
 @SuppressWarnings({"WeakerAccess", "unused"})
 public final class MqttClientConfig {
 
+    // ssl认证的内容
     private final SslContext sslContext;
+    // 随机分配的客户端id
     private final String randomClientId;
 
     private String clientId;
+    // 超时
     private int timeoutSeconds = 60;
     private MqttVersion protocolVersion = MqttVersion.MQTT_3_1;
     @Nullable private String username = null;

@@ -19,6 +19,10 @@ import lombok.Data;
 
 import java.util.concurrent.ExecutorService;
 
+/**
+ * Dispatcher从ActorRef中获取消息并传递给MailBox,Dispatcher封装了一个线程池，之后在
+ * 线程池中执行MailBox。
+ */
 @Data
 class Dispatcher {
 

@@ -18,6 +18,9 @@ package org.thingsboard.mqtt;
 import io.netty.channel.ChannelFuture;
 import io.netty.handler.codec.mqtt.MqttConnectReturnCode;
 
+/**
+ * 定义了mqtt的链接结果，主要包含是否成功，返回状态码两部分
+ */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public final class MqttConnectResult {
 

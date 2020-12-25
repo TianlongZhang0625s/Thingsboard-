@@ -21,6 +21,11 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+/**
+ * ActorRef将消息处理能力委派给Dispatcher,实际上，当我们创建ActorSystem和ActorRef时，
+ * Dispatcher和MailBox就已经被创建了 可以参考TbActorMailbox.java
+ *
+ */
 public interface TbActorCtx extends TbActorRef {
 
     TbActorId getSelf();

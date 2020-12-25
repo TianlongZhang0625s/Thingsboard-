@@ -17,6 +17,9 @@ package org.thingsboard.server.actors;
 
 import lombok.Data;
 
+/**
+ * config : 线程池，重试次数和actor的消息推送
+ */
 @Data
 public class TbActorSystemSettings {
 

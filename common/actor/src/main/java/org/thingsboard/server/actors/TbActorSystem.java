@@ -22,6 +22,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 
+/**
+ * actor模型整体的行为，调度，分配，创建父子actor，停止actor，向所有actor广播，过滤子actor
+ * 调用的juc包中的工具实现
+ * ActorSystem作为顶级Actor，可以创建和停止Actors,甚至可关闭整个Actor环境，
+ * 此外Actors是按层次划分的，ActorSystem就好比Java中的Object对象，Scala中的Any，
+ * 是所有Actors的根，当你通过ActorSystem的actof方法创建Actor时，实际就是在ActorSystem
+ * 下创建了一个子Actor。
+ */
 public interface TbActorSystem {
 
     ScheduledExecutorService getScheduler();
@@ -32,6 +40,13 @@ public interface TbActorSystem {
 
     TbActorRef getActor(TbActorId actorId);
 
+    /**
+     * ActorSystem通过actorOf创建Actor，但其并不返回TeacherActor而是返
+     * 回一个类型为ActorRef的东西。
+     * ActorRef作为Actor的代理，使得客户端并不直接与Actor对话，这种Actor
+     * 模型也是为了避免Actor的自定义/私有方法或变量被直接访问，所
+     * 以你最好将消息发送给ActorRef，由它去传递给目标Actor
+     */
     TbActorRef createRootActor(String dispatcherId, TbActorCreator creator);
 
     TbActorRef createChildActor(String dispatcherId, TbActorCreator creator, TbActorId parent);

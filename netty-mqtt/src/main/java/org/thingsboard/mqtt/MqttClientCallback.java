@@ -16,6 +16,7 @@
 package org.thingsboard.mqtt;
 
 /**
+ * 定义了异步回调的通用callback接口
  * Created by Valerii Sosliuk on 12/30/2017.
  */
 public interface MqttClientCallback {

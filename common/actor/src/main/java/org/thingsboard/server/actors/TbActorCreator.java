@@ -15,6 +15,9 @@
  */
 package org.thingsboard.server.actors;
 
+/**
+ * 创建Actor模型
+ */
 public interface TbActorCreator {
 
     TbActorId createActorId();

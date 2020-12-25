@@ -39,6 +39,9 @@ import org.thingsboard.server.service.security.permission.Resource;
 import org.thingsboard.server.service.security.system.SystemSecurityService;
 import org.thingsboard.server.service.update.UpdateService;
 
+/**
+ * 登录thingsboard的控制入口，controller起点
+ */
 @RestController
 @TbCoreComponent
 @RequestMapping("/api/admin")

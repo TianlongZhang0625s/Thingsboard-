@@ -17,6 +17,11 @@ package org.thingsboard.server.actors;
 
 import org.thingsboard.server.common.msg.TbActorMsg;
 
+/**
+ * 可以理解为代理
+ * 当ActorRef发送消息调用目标Actor的reveive方法时，MailBox中的run方法被执行，接着从消息队列中取出一条消息并传递给Actor处理
+ * 在这里具体指process方法来进行执行。
+ */
 public interface TbActorRef {
 
     TbActorId getActorId();

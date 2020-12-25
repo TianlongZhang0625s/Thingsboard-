@@ -23,7 +23,7 @@ public class TbSnsNodeConfiguration implements NodeConfiguration<TbSnsNodeConfig
 
     private String topicArnPattern;
     private String accessKeyId;
-    private String secretAccessKey;
+    private String secretAccessKey; // ssa
     private String region;
 
     @Override

@@ -17,7 +17,9 @@ package org.thingsboard.server.actors;
 
 import lombok.Getter;
 import lombok.ToString;
-
+/**
+ * 在TbActor中使用的策略，启动失败策略
+ */
 @ToString
 public class ProcessFailureStrategy {
 

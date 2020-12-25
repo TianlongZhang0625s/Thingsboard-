@@ -17,6 +17,10 @@ package org.thingsboard.server.actors;
 
 import org.thingsboard.server.common.msg.TbActorMsg;
 
+/**
+ * actor模型简介见md文档
+ * 
+ */
 public interface TbActor {
 
     boolean process(TbActorMsg msg);

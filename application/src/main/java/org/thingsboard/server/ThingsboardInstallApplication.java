@@ -43,7 +43,7 @@ public class ThingsboardInstallApplication {
             ConfigurableApplicationContext context = application.run(updateArguments(args));
             context.getBean(ThingsboardInstallService.class).performInstall();
         } catch (Exception e) {
-            log.error(e.getMessage());
+//            log.error(e.getMessage());
             System.exit(1);
         }
     }

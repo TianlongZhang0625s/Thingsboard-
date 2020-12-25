@@ -19,6 +19,7 @@ import java.util.Objects;
 
 public class TbStringActorId implements TbActorId {
 
+
     private final String id;
 
     public TbStringActorId(String id) {

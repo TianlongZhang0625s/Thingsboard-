@@ -27,7 +27,8 @@
     <packaging>pom</packaging>
 
     <name>Thingsboard Extensions</name>
-    <url>https://thingsboard.io</url>
+
+
 
     <properties>
         <main.dir>${basedir}/..</main.dir>

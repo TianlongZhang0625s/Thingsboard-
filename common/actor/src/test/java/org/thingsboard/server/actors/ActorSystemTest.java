@@ -51,6 +51,7 @@ public class ActorSystemTest {
         int cores = Runtime.getRuntime().availableProcessors();
         parallelism = Math.max(2, cores / 2);
         TbActorSystemSettings settings = new TbActorSystemSettings(5, parallelism, 42);
+        // 创建了defaultTbActorSystem
         actorSystem = new DefaultTbActorSystem(settings);
         submitPool = Executors.newWorkStealingPool(parallelism);
     }
@@ -63,7 +64,9 @@ public class ActorSystemTest {
 
     @Test
     public void test1actorsAnd100KMessages() throws InterruptedException {
+        // 初始化新的dispatcher
         actorSystem.createDispatcher(ROOT_DISPATCHER, Executors.newWorkStealingPool(parallelism));
+//        测试100k大小的消息
         testActorsAndMessages(1, _100K, 1);
     }
 
